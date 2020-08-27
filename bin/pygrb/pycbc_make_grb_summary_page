@@ -222,12 +222,22 @@ def build_grb_results_page(args, inifile, outdir, htmldir, ifoTag,
 
     # add links
     inilink = os.path.basename(inifile)
-    inilinktext = 'ini-file used'
+    inilinktext = 'Configuration file used'
     webpage.add(inilinktext)
     webpage.a(href=inilink)
     webpage.add('here')
     webpage.a.close()
     webpage.br()
+
+    if os.path.isfile(os.path.dirname(inifile) + '/pygrb_environment.txt'):
+        envfile = os.path.dirname(inifile) + '/pygrb_environment.txt')
+        envlink = os.path.basename(envfile)
+        envlinktext = 'Environment information'
+        webpage.add(envlinktext)
+        webpage.a(href=envlink)
+        webpage.add('here')
+        webpage.a.close()
+        webpage.br()
 
     webpage.div.close()
 
@@ -236,7 +246,13 @@ def build_grb_results_page(args, inifile, outdir, htmldir, ifoTag,
             not os.path.samefile(inifile, '%s/%s'
                                  % (outdir, os.path.basename(inifile))):
         shutil.copy(inifile, outdir)
-    
+
+    # copy over environment file if it exists
+    if os.path.isfile(os.path.dirname(inifile) + '/pygrb_environment.txt'):
+        if not os.path.isfile('%s/%s' % (outdir, os.path.basename(envfile))) or \
+                not os.path.samefile(envfile, '%s/%s'
+                                     % (outdir, os.path.basename(envfile))):
+            shutil.copy(envfile, outdir)
 
     # add off source trig plots
     secname = 'Offsource triggers versus time'
