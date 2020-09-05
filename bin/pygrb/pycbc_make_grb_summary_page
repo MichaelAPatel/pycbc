@@ -230,7 +230,7 @@ def build_grb_results_page(args, inifile, outdir, htmldir, ifoTag,
     webpage.br()
 
     if os.path.isfile(os.path.dirname(inifile) + '/pygrb_environment.txt'):
-        envfile = os.path.dirname(inifile) + '/pygrb_environment.txt')
+        envfile = os.path.dirname(inifile) + '/pygrb_environment.txt'
         envlink = os.path.basename(envfile)
         envlinktext = 'Environment information'
         webpage.add(envlinktext)
